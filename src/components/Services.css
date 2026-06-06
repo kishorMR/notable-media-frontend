@@ -1,0 +1,306 @@
+/* ── Services Section ── */
+.services-section {
+  position: relative;
+  background: #07070d;
+  padding: 7rem 5vw;
+  border-top: 1px solid #1a1a2a;
+  overflow: hidden;
+  cursor: none;
+}
+
+/* ── Grid background texture ── */
+.services-grid-bg {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(233,30,140,0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(233,30,140,0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black 40%, transparent 100%);
+  pointer-events: none;
+}
+
+/* ── Custom Cursor ── */
+.cursor-ring {
+  position: fixed;
+  top: 0; left: 0;
+  width: 40px; height: 40px;
+  border: 1.5px solid rgba(233, 30, 140, 0.7);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s, width 0.2s, height 0.2s, border-color 0.2s;
+  will-change: transform;
+  mix-blend-mode: screen;
+}
+
+.cursor-dot {
+  position: fixed;
+  top: 0; left: 0;
+  width: 8px; height: 8px;
+  background: #e91e8c;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  will-change: transform;
+}
+
+/* ── Inner container ── */
+.services-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 1;
+}
+
+/* ── Header ── */
+.services-header {
+  margin-bottom: 4rem;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+
+.services-header.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.services-tag {
+  display: inline-block;
+  background: rgba(233, 30, 140, 0.1);
+  border: 1px solid rgba(233, 30, 140, 0.35);
+  color: #e91e8c;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.9rem;
+  border-radius: 4px;
+  margin-bottom: 1.1rem;
+}
+
+.services-title {
+  font-size: clamp(2rem, 4vw, 3.2rem);
+  font-weight: 800;
+  color: #f1f1f1;
+  letter-spacing: -1.5px;
+  margin: 0 0 1rem;
+  line-height: 1.12;
+}
+
+.title-accent {
+  color: #e91e8c;
+  position: relative;
+}
+
+.title-accent::after {
+  content: '';
+  position: absolute;
+  bottom: 2px;
+  left: 0; right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #e91e8c, transparent);
+  border-radius: 1px;
+}
+
+.services-subtitle {
+  font-size: 1rem;
+  color: #6b7280;
+  line-height: 1.75;
+  max-width: 480px;
+}
+
+/* ── Cards grid ── */
+.services-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5px;
+  background: #1a1a2a;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid #1a1a2a;
+}
+
+/* ── Individual card ── */
+.svc-card {
+  position: relative;
+  background: #0a0a12;
+  padding: 2.5rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 0.65s ease var(--delay),
+    transform 0.65s ease var(--delay),
+    background 0.3s ease;
+}
+
+.svc-card.revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.svc-card.hovered {
+  background: #0e0a14;
+}
+
+/* glow blob on hover */
+.card-glow {
+  position: absolute;
+  top: -60px; left: -60px;
+  width: 200px; height: 200px;
+  border-radius: 50%;
+  background: var(--grad-from);
+  filter: blur(50px);
+  opacity: 0;
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.svc-card.hovered .card-glow {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+/* card number */
+.svc-num {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 1.25rem;
+  opacity: 0.7;
+}
+
+/* icon */
+.svc-icon {
+  width: 52px;
+  height: 52px;
+  margin-bottom: 1.5rem;
+  transition: transform 0.35s ease;
+}
+
+.svc-card.hovered .svc-icon {
+  transform: scale(1.08) translateY(-3px);
+}
+
+/* title */
+.svc-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #f1f1f1;
+  margin: 0 0 0.4rem;
+  letter-spacing: -0.3px;
+}
+
+/* tagline */
+.svc-tagline {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  margin: 0 0 1rem;
+  opacity: 0.85;
+}
+
+/* description */
+.svc-desc {
+  font-size: 0.85rem;
+  color: #6b7280;
+  line-height: 1.75;
+  margin: 0 0 1.5rem;
+  flex: 1;
+  transition: color 0.3s;
+}
+
+.svc-card.hovered .svc-desc {
+  color: #9ca3af;
+}
+
+/* feature pills */
+.svc-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-bottom: 1.75rem;
+}
+
+.svc-pill {
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 10%, transparent);
+  border: 1px solid color-mix(in srgb, var(--accent) 25%, transparent);
+  padding: 3px 9px;
+  border-radius: 20px;
+  letter-spacing: 0.02em;
+  transition: background 0.2s, transform 0.2s;
+}
+
+.svc-card.hovered .svc-pill {
+  background: color-mix(in srgb, var(--accent) 16%, transparent);
+}
+
+/* CTA button */
+.svc-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  background: none;
+  border: 1px solid #2a2a3a;
+  color: #d1d5db;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: 7px;
+  cursor: none;
+  font-family: inherit;
+  transition: border-color 0.25s, color 0.25s, background 0.25s, transform 0.2s;
+  align-self: flex-start;
+}
+
+.svc-cta svg {
+  transition: transform 0.25s ease;
+}
+
+.svc-card.hovered .svc-cta {
+  border-color: var(--accent);
+  color: var(--accent);
+  background: color-mix(in srgb, var(--accent) 8%, transparent);
+  transform: translateY(-1px);
+}
+
+.svc-card.hovered .svc-cta svg {
+  transform: translateX(3px);
+}
+
+/* bottom accent bar */
+.card-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 2px;
+  opacity: 0;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: opacity 0.3s, transform 0.4s ease;
+}
+
+.svc-card.hovered .card-bar {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+/* ── Responsive ── */
+@media (max-width: 900px) {
+  .services-cards {
+    grid-template-columns: 1fr;
+    gap: 1px;
+  }
+}
