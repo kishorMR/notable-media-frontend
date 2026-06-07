@@ -1,4 +1,5 @@
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
 export default function Contact() {
@@ -10,6 +11,8 @@ export default function Contact() {
     message: "",
   });
 
+  const [sending, setSending] = useState(false);
+
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -19,33 +22,29 @@ export default function Contact() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setSending(true);
 
     try {
-      const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/api/contact`,
+      await emailjs.send(
+        "service_xxxxxxx",   // replace with your Service ID
+        "template_xxxxxxx",  // replace with your Template ID
         {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        }
+          name: formData.name,
+          email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+        },
+        "your_public_key"    // replace with your Public Key
       );
 
-      const result = await response.text();
-
-      alert(result);
-
-      setFormData({
-        name: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
+      alert("Message Sent Successfully!");
+      setFormData({ name: "", email: "", subject: "", message: "" });
 
     } catch (error) {
       console.error("Error:", error);
-      alert("Failed to send message");
+      alert("Failed to send message. Please try again.");
+    } finally {
+      setSending(false);
     }
   };
 
@@ -56,34 +55,20 @@ export default function Contact() {
         {/* Left Side */}
         <div className="contact-info">
           <span className="section-tag">Get In Touch</span>
-
-          <h2 className="section-title">
-            Let's Create Something Amazing
-          </h2>
-
+          <h2 className="section-title">Let's Create Something Amazing</h2>
           <p className="section-sub">
             Have an idea, project, or collaboration in mind?
             We'd love to hear from you and help bring your vision to life.
           </p>
-
           <div className="contact-details">
-            <div className="detail-item">
-              📧 hello@company.com
-            </div>
-
-            <div className="detail-item">
-              📞 +91 98765 43210
-            </div>
-
-            <div className="detail-item">
-              📍 Bangalore, India
-            </div>
+            <div className="detail-item">📧 hello@company.com</div>
+            <div className="detail-item">📞 +91 98765 43210</div>
+            <div className="detail-item">📍 Bangalore, India</div>
           </div>
         </div>
 
         {/* Right Side */}
         <form className="contact-form" onSubmit={handleSubmit}>
-
           <input
             type="text"
             name="name"
@@ -93,7 +78,6 @@ export default function Contact() {
             onChange={handleChange}
             required
           />
-
           <input
             type="email"
             name="email"
@@ -103,7 +87,6 @@ export default function Contact() {
             onChange={handleChange}
             required
           />
-
           <input
             type="text"
             name="subject"
@@ -113,7 +96,6 @@ export default function Contact() {
             onChange={handleChange}
             required
           />
-
           <textarea
             rows="5"
             name="message"
@@ -123,14 +105,13 @@ export default function Contact() {
             onChange={handleChange}
             required
           />
-
           <button
             type="submit"
             className="contact-submit"
+            disabled={sending}
           >
-            Send Message →
+            {sending ? "Sending..." : "Send Message →"}
           </button>
-
         </form>
 
       </div>
