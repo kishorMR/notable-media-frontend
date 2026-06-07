@@ -26,15 +26,15 @@ export default function Contact() {
 
     try {
       await emailjs.send(
-        "service_xxxxxxx",   // replace with your Service ID
-        "template_xxxxxxx",  // replace with your Template ID
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
         {
           name: formData.name,
           email: formData.email,
           subject: formData.subject,
           message: formData.message,
         },
-        "your_public_key"    // replace with your Public Key
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
       );
 
       alert("Message Sent Successfully!");
