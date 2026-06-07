@@ -22,7 +22,7 @@ export default function Contact() {
 
     try {
       const response = await fetch(
-        "http://localhost:8080/api/contact",
+        `${process.env.REACT_APP_API_URL}/api/contact`,
         {
           method: "POST",
           headers: {
