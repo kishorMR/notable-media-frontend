@@ -22,7 +22,7 @@ export default function Contact() {
 
     try {
       const response = await fetch(
-        `${process.env.REACT_APP_API_URL}/api/contact`,
+        `${import.meta.env.VITE_API_URL}/api/contact`,
         {
           method: "POST",
           headers: {
