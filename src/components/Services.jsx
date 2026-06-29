@@ -1,9 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import './Services.css';
 
 const services = [
   {
     id: '01',
+    slug: 'web-development',
     title: 'Website Development',
     tagline: 'Built to Perform. Designed to Impress.',
     desc: 'We craft fast, responsive, pixel-perfect websites that convert visitors into customers. From sleek landing pages to full-scale web applications — every line of code is intentional.',
@@ -25,6 +27,7 @@ const services = [
   },
   {
     id: '02',
+    slug: 'ai-automation',
     title: 'AI Chatbots & Automation',
     tagline: 'Your Business, Running 24/7.',
     desc: 'We build intelligent AI-powered chatbots and automation pipelines that eliminate repetitive work, delight customers, and scale your operations — without scaling your headcount.',
@@ -48,6 +51,7 @@ const services = [
   },
   {
     id: '03',
+    slug: 'social-marketing',
     title: 'Social Media Marketing',
     tagline: 'Content that Stops the Scroll.',
     desc: 'Strategic social media management, content creation, and growth campaigns designed to build your brand authority, grow your audience, and turn followers into paying customers.',
@@ -68,6 +72,7 @@ const services = [
 ];
 
 export default function Services() {
+  const navigate = useNavigate();
   const sectionRef = useRef(null);
   const cursorRef = useRef(null);
   const cursorDotRef = useRef(null);
@@ -154,7 +159,10 @@ export default function Services() {
                   <span key={f} className="svc-pill">{f}</span>
                 ))}
               </div>
-              <button className="svc-cta">
+              <button
+                className="svc-cta"
+                onClick={() => navigate(`/services/${svc.slug}`)}
+              >
                 Learn More
                 <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                   <path d="M2 7h10M8 3l4 4-4 4" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
