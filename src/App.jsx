@@ -5,6 +5,7 @@ import Services from './components/Services';
 import Projects from './components/Projects';
 import Contact from './components/Contact';
 import ServiceDetail from './components/ServiceDetail';
+import Chatbot from './components/Chatbot';
 import './App.css';
 
 export default function App() {
@@ -22,6 +23,7 @@ export default function App() {
         } />
         <Route path="/services/:serviceId" element={<ServiceDetail />} />
       </Routes>
+      <Chatbot />
     </>
   );
 }
